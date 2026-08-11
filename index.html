@@ -29,6 +29,24 @@ html,body{height:100%;overflow:hidden}body{font-family:var(--f);background:var(-
 .data-error{background:#FFF7ED;border:1px solid #FED7AA;color:#9A3412;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:11px;display:none}
 @media(max-width:820px){.auth-left{display:none}.auth-right{width:100%;padding:26px}}
 
+
+:root{--surface:#FFFFFF;--surface-2:#F8FAFC;--surface-3:#F1F5F9;--text:#0F172A;--text-2:#334155;--muted:#64748B;--line:#E2E8F0}
+html[data-theme="dark"]{--bg:#0B1220;--surface:#111827;--surface-2:#0F172A;--surface-3:#172033;--text:#E5E7EB;--text-2:#CBD5E1;--muted:#94A3B8;--line:#243244}
+html[data-theme="dark"] body,html[data-theme="dark"] .main,html[data-theme="dark"] .content{background:var(--bg);color:var(--text)}
+html[data-theme="dark"] .topbar,html[data-theme="dark"] .card,html[data-theme="dark"] .kbox,html[data-theme="dark"] .job-card,html[data-theme="dark"] .candidate-card,html[data-theme="dark"] .tw,html[data-theme="dark"] .modal,html[data-theme="dark"] .auth-right{background:var(--surface);color:var(--text);border-color:var(--line)}
+html[data-theme="dark"] .tw th,html[data-theme="dark"] .stage,html[data-theme="dark"] .toolbar .search,html[data-theme="dark"] .toolbar .filter,html[data-theme="dark"] .form-row input,html[data-theme="dark"] .form-row select,html[data-theme="dark"] .form-row textarea,html[data-theme="dark"] .js{background:var(--surface-2);color:var(--text);border-color:var(--line)}
+html[data-theme="dark"] .tw td,html[data-theme="dark"] .card-sub,html[data-theme="dark"] .job-meta,html[data-theme="dark"] .cand-meta,html[data-theme="dark"] .att-sub,html[data-theme="dark"] .kdelta{color:var(--muted)}
+html[data-theme="dark"] .tn,html[data-theme="dark"] .job-title,html[data-theme="dark"] .att-title,html[data-theme="dark"] .card-title,html[data-theme="dark"] .hero h1,html[data-theme="dark"] .tb-title,html[data-theme="dark"] .jsv{color:var(--text)}
+html[data-theme="dark"] .attention{background:var(--surface);border-color:var(--line)}html[data-theme="dark"] .attention:hover,html[data-theme="dark"] .tw tbody tr:hover td{background:var(--surface-2)}
+html[data-theme="dark"] .modal-body{background:var(--surface-2)}html[data-theme="dark"] .modal-footer{border-color:var(--line)}
+html[data-theme="dark"] .empty{background:var(--surface-2);border-color:var(--line);color:var(--muted)}
+html[data-theme="dark"] .logout-btn{background:var(--surface-3);color:var(--text-2)}html[data-theme="dark"] .tb-date{background:var(--surface-2);border-color:var(--line);color:var(--muted)}
+.pref-controls{display:flex;align-items:center;gap:7px}.pref-toggle{border:1px solid var(--line);background:var(--surface);color:var(--text-2);border-radius:9px;padding:6px 9px;font-size:10px;font-weight:800;cursor:pointer;min-width:42px}
+.lang-menu{position:relative}.lang-popover{display:none;position:absolute;right:0;top:38px;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 28px rgba(15,23,42,.15);padding:6px;min-width:126px;z-index:80}
+.lang-popover.show{display:block}.lang-option{width:100%;border:0;background:transparent;color:var(--text-2);text-align:left;padding:8px 9px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer}.lang-option:hover{background:var(--surface-2)}
+html[data-theme="dark"] .mobile-nav{background:rgba(17,24,39,.96);border-color:var(--line)}
+@media(max-width:820px){.pref-toggle{padding:6px 8px}.logout-btn{display:none}}
+
 </style>
 </head>
 <body>
@@ -36,7 +54,7 @@ html,body{height:100%;overflow:hidden}body{font-family:var(--f);background:var(-
 <div class="auth-screen" id="authScreen">
   <div class="auth-left"><div class="auth-brand"><h1>Catal<em>yst</em></h1><p>Recruiting, onboarding and people intelligence built for Evolve CX.</p></div></div>
   <div class="auth-right"><div class="auth-card">
-    <div class="auth-kicker">Evolve CX</div><h2>Welcome to Catalyst</h2><p>Use the same corporate credentials you use for Impulse.</p>
+    <div class="auth-kicker">Evolve CX</div><h2 data-i18n="welcome">Welcome to Catalyst</h2><p data-i18n="authCopy">Use the same corporate credentials you use for Impulse.</p>
     <div class="auth-field"><label>Email</label><input id="loginEmail" type="email" placeholder="name@evolvecx.io"></div>
     <div class="auth-field"><label>Password</label><input id="loginPassword" type="password" placeholder="••••••••"></div>
     <button class="auth-btn" id="loginBtn" onclick="loginCatalyst()">Sign in</button>
@@ -47,26 +65,26 @@ html,body{height:100%;overflow:hidden}body{font-family:var(--f);background:var(-
 
 <div class="app">
   <aside class="sidebar">
-    <div class="sb-logo"><div class="sb-wordmark">Catal<em>yst</em></div><div class="sb-tagline">People Operating System</div></div>
+    <div class="sb-logo"><div class="sb-wordmark">Catal<em>yst</em></div><div class="sb-tagline" data-i18n="tagline">People Operating System</div></div>
     <div class="sb-menu">
-      <div class="sb-item active" data-page="dashboard"><div class="sb-icon">⌂</div><span>Dashboard</span></div>
-      <div class="sb-section">Recruiting</div>
-      <div class="sb-item" data-page="requisitions"><div class="sb-icon">☷</div><span>Requisitions</span></div>
-      <div class="sb-item" data-page="jobs"><div class="sb-icon">◫</div><span>Jobs</span></div>
-      <div class="sb-item" data-page="candidates"><div class="sb-icon">◉</div><span>Candidates</span></div>
-      <div class="sb-item" data-page="pipeline"><div class="sb-icon">⇢</div><span>Pipeline</span></div>
-      <div class="sb-item" data-page="offers"><div class="sb-icon">◇</div><span>Offers & Hires</span></div>
+      <div class="sb-item active" data-page="dashboard"><div class="sb-icon">⌂</div><span data-i18n="dashboard">Dashboard</span></div>
+      <div class="sb-section" data-i18n="recruiting">Recruiting</div>
+      <div class="sb-item" data-page="requisitions"><div class="sb-icon">☷</div><span data-i18n="requisitions">Requisitions</span></div>
+      <div class="sb-item" data-page="jobs"><div class="sb-icon">◫</div><span data-i18n="jobs">Jobs</span></div>
+      <div class="sb-item" data-page="candidates"><div class="sb-icon">◉</div><span data-i18n="candidates">Candidates</span></div>
+      <div class="sb-item" data-page="pipeline"><div class="sb-icon">⇢</div><span data-i18n="pipeline">Pipeline</span></div>
+      <div class="sb-item" data-page="offers"><div class="sb-icon">◇</div><span data-i18n="offersHires">Offers & Hires</span></div>
       <div class="sb-section">People</div>
-      <div class="sb-item" data-page="onboarding"><div class="sb-icon">✓</div><span>Onboarding</span></div>
-      <div class="sb-item" data-page="analytics"><div class="sb-icon">⌁</div><span>People Analytics</span></div>
+      <div class="sb-item" data-page="onboarding"><div class="sb-icon">✓</div><span data-i18n="onboarding">Onboarding</span></div>
+      <div class="sb-item" data-page="analytics"><div class="sb-icon">⌁</div><span data-i18n="peopleAnalytics">People Analytics</span></div>
     </div>
     <div class="sb-footer"><div class="sb-user"><div class="sb-av" id="sbUserAv">CX</div><div><div class="sb-uname" id="sbUserName">User</div><div class="sb-urole" id="sbUserRole">Loading…</div></div></div></div>
   </aside>
   <main class="main">
-    <div class="topbar"><div class="tb-title" id="topTitle">Dashboard</div><div class="tb-sp"></div><div class="tb-chip">Live</div><div class="tb-date" id="liveDate"></div><button class="logout-btn" onclick="logoutCatalyst()">Log out</button></div>
+    <div class="topbar"><div class="tb-title" id="topTitle">Dashboard</div><div class="tb-sp"></div><div class="tb-chip">Live</div><div class="tb-date" id="liveDate"></div><button class="logout-btn" onclick="logoutCatalyst()" data-i18n="logout">Log out</button></div>
     <div class="content">
       <section class="page active" id="dashboard">
-        <div class="hero"><div><h1>Good morning, Arturo.</h1><p>Here is the current hiring health across Catalyst.</p></div><button class="btn-cyan" onclick="openRequisitionModal()">+ New requisition</button></div>
+        <div class="hero"><div><h1>Good morning, Arturo.</h1><p data-i18n="dashboardSubtitle">Here is the current hiring health across Catalyst.</p></div><button class="btn-cyan" onclick="openRequisitionModal()">+ New requisition</button></div>
         <div class="kgrid">
           <div class="kbox clickable" onclick="go('jobs')"><div class="klabel">Open Jobs</div><div class="kval" id="kpiOpenJobs">—</div><div class="kdelta warn">Open vacancies</div></div>
           <div class="kbox clickable" onclick="go('candidates')"><div class="klabel">Active Candidates</div><div class="kval" id="kpiActiveCandidates">—</div><div class="kdelta good">Active applications</div></div>
@@ -97,7 +115,7 @@ html,body{height:100%;overflow:hidden}body{font-family:var(--f);background:var(-
         </div>
       </section>
       <section class="page" id="requisitions">
-        <div class="hero"><div><h1>Requisitions</h1><p>Request, approve, and convert headcount into active recruiting work.</p></div><button class="btn-cyan" onclick="openRequisitionModal()">+ New requisition</button></div>
+        <div class="hero"><div><h1 data-i18n="requisitions">Requisitions</h1><p data-i18n="requisitionsSubtitle">Request, approve, and convert headcount into active recruiting work.</p></div><button class="btn-cyan" onclick="openRequisitionModal()">+ New requisition</button></div>
         <div class="kgrid"><div class="kbox"><div class="klabel">Pending Approval</div><div class="kval" id="reqPending">—</div><div class="kdelta warn">Pending review</div></div><div class="kbox"><div class="klabel">Approved</div><div class="kval" id="reqApproved">—</div><div class="kdelta good">Approved</div></div><div class="kbox"><div class="klabel">Changes Requested</div><div class="kval" id="reqChanges">—</div><div class="kdelta">Waiting on manager</div></div><div class="kbox"><div class="klabel">Requested HC</div><div class="kval" id="reqHeadcount">—</div><div class="kdelta">Across visible requests</div></div></div>
         <div class="card"><div class="card-title"><div>All requisitions<div class="card-sub">Click any row to inspect the request</div></div></div><div class="toolbar"><input class="search" placeholder="Search requisitions..."><select class="filter"><option>All statuses</option><option>Submitted</option><option>Approved</option><option>Changes requested</option></select><select class="filter"><option>All priorities</option><option>High</option><option>Medium</option><option>Low</option></select></div><div id="reqDataError" class="data-error"></div><div class="tw"><table><thead><tr><th>Role</th><th>Campaign / LOB</th><th>HC</th><th>Priority</th><th>Requested by</th><th>Start date</th><th>Status</th></tr></thead><tbody id="reqTableBody"><tr><td colspan="7" style="text-align:center;color:#94A3B8;padding:24px">Loading requisitions…</td></tr></tbody></table></div></div>
       </section>
@@ -160,6 +178,30 @@ const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZ
 const sb=supabase.createClient(SB_URL,SB_KEY);
 let currentUser=null,currentEmpleado=null,currentRole=null,requisitions=[];
 const titles={dashboard:'Dashboard',requisitions:'Requisitions',jobs:'Jobs',candidates:'Candidates',pipeline:'Pipeline',offers:'Offers & Hires',onboarding:'Onboarding',analytics:'People Analytics'};
+const I18N={
+ en:{tagline:'People Operating System',dashboard:'Dashboard',recruiting:'Recruiting',requisitions:'Requisitions',jobs:'Jobs',candidates:'Candidates',pipeline:'Pipeline',offersHires:'Offers & Hires',onboarding:'Onboarding',peopleAnalytics:'People Analytics',logout:'Log out',live:'Live',dashboardSubtitle:'Here is the current hiring health across Catalyst.',requisitionsSubtitle:'Request, approve, and convert headcount into active recruiting work.',welcome:'Welcome to Catalyst',authCopy:'Use the same corporate credentials you use for Impulse.'},
+ es:{tagline:'Sistema Operativo de People',dashboard:'Dashboard',recruiting:'Recruiting',requisitions:'Requisiciones',jobs:'Vacantes',candidates:'Candidatos',pipeline:'Pipeline',offersHires:'Ofertas y Contrataciones',onboarding:'Onboarding',peopleAnalytics:'People Analytics',logout:'Cerrar sesión',live:'En vivo',dashboardSubtitle:'Este es el estado actual de contratación en Catalyst.',requisitionsSubtitle:'Solicita, aprueba y convierte headcount en trabajo activo de recruiting.',welcome:'Bienvenido a Catalyst',authCopy:'Usa las mismas credenciales corporativas que utilizas en Impulse.'}
+};
+let currentLanguage=localStorage.getItem('catalyst_language')||'en';
+let currentTheme=localStorage.getItem('catalyst_theme')||'light';
+function localizedTitle(page){
+ const map={dashboard:'dashboard',requisitions:'requisitions',jobs:'jobs',candidates:'candidates',pipeline:'pipeline',offers:'offersHires',onboarding:'onboarding',analytics:'peopleAnalytics'};
+ return I18N[currentLanguage]?.[map[page]]||titles[page]||'Catalyst';
+}
+function applyPreferences(){
+ document.documentElement.setAttribute('data-theme',currentTheme);
+ document.documentElement.lang=currentLanguage;
+ const t=document.getElementById('themeToggle'); if(t)t.textContent=currentTheme==='dark'?'☀':'☾';
+ const l=document.getElementById('langToggle'); if(l)l.textContent=currentLanguage.toUpperCase();
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const v=I18N[currentLanguage]?.[el.dataset.i18n];if(v)el.textContent=v});
+ const active=document.querySelector('.page.active')?.id||'dashboard';
+ const tt=document.getElementById('topTitle'); if(tt)tt.textContent=localizedTitle(active);
+}
+function toggleTheme(){currentTheme=currentTheme==='dark'?'light':'dark';localStorage.setItem('catalyst_theme',currentTheme);applyPreferences()}
+function toggleLanguageMenu(){document.getElementById('langPopover')?.classList.toggle('show')}
+function setLanguage(lang){currentLanguage=lang;localStorage.setItem('catalyst_language',lang);document.getElementById('langPopover')?.classList.remove('show');applyPreferences()}
+document.addEventListener('click',e=>{if(!e.target.closest('.lang-menu'))document.getElementById('langPopover')?.classList.remove('show')});
+
 const managerRoles=['manager','sr manager','jr_manager'];
 const taRoles=['talent','ta_manager','ta_analyst'];
 const hopRoles=['head_people','ceo'];
@@ -170,7 +212,7 @@ function fmtDate(v){if(!v)return '—';return new Date(v+'T12:00:00').toLocaleDa
 function roleLabel(r){return ({head_people:'Head of People',ceo:'CEO',talent:'Talent',ta_manager:'TA Manager',ta_analyst:'TA Analyst',manager:'Manager','sr manager':'Sr Manager',jr_manager:'Jr Manager'})[r]||r||'User'}
 function pillForStatus(s){s=String(s||'').toLowerCase();if(['approved','accepted','hired','open'].includes(s))return'pg';if(['rejected','declined','cancelled'].includes(s))return'pr';if(['submitted','pending','pending_approval'].includes(s))return'pb';if(['returned','changes_requested','paused'].includes(s))return'pa';return'pgr'}
 function showLoading(on){document.getElementById('loadingOverlay').classList.toggle('show',!!on)}
-function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(page)?.classList.add('active');document.getElementById('topTitle').textContent=titles[page]||'Catalyst';document.querySelectorAll('[data-page]').forEach(el=>el.classList.toggle('active',el.dataset.page===page));if(page==='requisitions')loadRequisitions()}
+function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(page)?.classList.add('active');document.getElementById('topTitle').textContent=localizedTitle(page);document.querySelectorAll('[data-page]').forEach(el=>el.classList.toggle('active',el.dataset.page===page));if(page==='requisitions')loadRequisitions()}
 document.querySelectorAll('[data-page]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.page)));
 
 async function loginCatalyst(){
@@ -193,7 +235,7 @@ async function startCatalyst(user){
     document.getElementById('sbUserName').textContent=emp.nombre_completo||emp.nombre||user.email;
     document.getElementById('sbUserRole').textContent=roleLabel(currentRole);
     document.getElementById('sbUserAv').textContent=initials(emp.nombre_completo||emp.nombre||user.email);
-    const h1=document.querySelector('#dashboard .hero h1');if(h1)h1.textContent=`Good morning, ${(emp.nombre||emp.nombre_completo||'').split(' ')[0]||'there'}.`;
+    const h1=document.querySelector('#dashboard .hero h1');if(h1){const first=(emp.nombre||emp.nombre_completo||'').split(' ')[0]||'';h1.textContent=currentLanguage==='es'?`Buenos días, ${first}.`:`Good morning, ${first}.`;}
     applyRoleVisibility();updateClock();await Promise.allSettled([loadDashboard(),loadRequisitions()]);
   }finally{showLoading(false)}
 }
@@ -249,6 +291,7 @@ function updateClock(){const e=document.getElementById('liveDate');if(e)e.textCo
 setInterval(updateClock,60000);
 document.getElementById('reqModal').addEventListener('click',e=>{if(e.target.id==='reqModal')closeRequisitionModal()});
 document.getElementById('loginPassword').addEventListener('keydown',e=>{if(e.key==='Enter')loginCatalyst()});
+applyPreferences();
 (async()=>{const {data:{session}}=await sb.auth.getSession();if(session?.user){try{await startCatalyst(session.user)}catch(e){await sb.auth.signOut();const er=document.getElementById('loginError');er.textContent=e.message||'Could not start Catalyst.';er.style.display='block'}}})();
 </script>
 
