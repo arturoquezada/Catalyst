@@ -76,6 +76,9 @@ function go(page){
 
   if(page==='requisitions') loadRequisitions();
   if(page==='jobs' && typeof loadJobs==='function') loadJobs();
+  if(page==='candidates' && typeof loadCandidates==='function') loadCandidates();
+  if(page==='pipeline' && typeof loadPipeline==='function') loadPipeline();
+  if(page==='offers' && typeof loadOffers==='function') loadOffers();
 }
 
 function updateClock(){

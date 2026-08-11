@@ -75,24 +75,54 @@
         </div>
         <div class="grid2">
           <div>
-            <div class="card"><div class="card-title"><div>Needs your attention<div class="card-sub">Prioritized by hiring risk</div></div><span class="pill pr">3 at risk</span></div><div class="attention-list">
-              <div class="attention red" onclick="go('jobs')"><div class="att-main"><div class="att-title">Account Executive</div><div class="att-sub">No candidate has moved forward in 6 days</div></div><div class="att-right"><div class="att-num">34d</div><div class="att-label">open</div></div></div>
-              <div class="attention amber" onclick="go('pipeline')"><div class="att-main"><div class="att-title">Customer Service Representative</div><div class="att-sub">4 candidates are above stage SLA</div></div><div class="att-right"><div class="att-num">8</div><div class="att-label">HC left</div></div></div>
-              <div class="attention green"><div class="att-main"><div class="att-title">Operations Analyst</div><div class="att-sub">Healthy pipeline and on target</div></div><div class="att-right"><div class="att-num">18d</div><div class="att-label">open</div></div></div>
-            </div></div>
-            <div class="card"><div class="card-title"><div>Recent activity<div class="card-sub">What changed across Recruiting</div></div><span class="pill pgr">Today</span></div><div class="attention-list">
-              <div class="attention green"><div class="att-main"><div class="att-title">Mariana López accepted an offer</div><div class="att-sub">Account Executive · 10:42</div></div><span class="pill pg">Accepted</span></div>
-              <div class="attention"><div class="att-main"><div class="att-title">New requisition submitted</div><div class="att-sub">Supervisor · Operations · 09:18</div></div><span class="pill pb">Submitted</span></div>
-              <div class="attention"><div class="att-main"><div class="att-title">Daniela Ruiz moved to TA Interview</div><div class="att-sub">CSR · 08:55</div></div><span class="pill pc">Interview</span></div>
-            </div></div>
+            <div class="card">
+              <div class="card-title">
+                <div><span>Needs your attention</span><div class="card-sub">Calculated from live recruiting data</div></div>
+                <span class="pill pgr" id="attentionCount">—</span>
+              </div>
+              <div class="attention-list" id="attentionList">
+                <div class="empty">Loading live recruiting risks…</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">
+                <div><span>Recent activity</span><div class="card-sub">Latest events recorded in Catalyst</div></div>
+                <span class="pill pgr">Live</span>
+              </div>
+              <div class="attention-list" id="recentActivityList">
+                <div class="empty">Loading recent activity…</div>
+              </div>
+            </div>
           </div>
+
           <div>
-            <div class="bit"><div class="bit-head"><div class="bit-orb">✦</div><div><div class="bit-label">Catalyst Intelligence</div><div class="bit-name">Bit</div></div></div><div class="bit-copy">Two requisitions have been approved for more than 48 hours without a recruiter owner. Assigning them today will reduce your current SLA risk.</div><div class="bit-action"><button class="btn-cyan" onclick="go('requisitions')">Review requisitions</button></div></div>
-            <div class="card" style="margin-top:14px"><div class="card-title">Hiring velocity</div><div style="display:grid;gap:12px">
-              <div><div style="display:flex;justify-content:space-between;font-size:11px"><span>Time to fill</span><b>27 days</b></div><div class="progress"><span style="width:77%"></span></div></div>
-              <div><div style="display:flex;justify-content:space-between;font-size:11px"><span>Offer acceptance</span><b>75%</b></div><div class="progress"><span style="width:75%;background:#22C55E"></span></div></div>
-              <div><div style="display:flex;justify-content:space-between;font-size:11px"><span>SLA compliance</span><b>83%</b></div><div class="progress"><span style="width:83%;background:#F59E0B"></span></div></div>
-            </div></div>
+            <div class="bit">
+              <div class="bit-head">
+                <div class="bit-orb">✦</div>
+                <div><div class="bit-label">Catalyst Intelligence</div><div class="bit-name">Bit</div></div>
+              </div>
+              <div class="bit-copy" id="bitCopy">Analyzing live recruiting data…</div>
+              <div class="bit-action"><button class="btn-cyan" id="bitAction" onclick="go('jobs')">Review</button></div>
+            </div>
+
+            <div class="card" style="margin-top:14px">
+              <div class="card-title">Hiring velocity</div>
+              <div style="display:grid;gap:12px">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:11px"><span>Time to fill</span><b id="metricTimeToFill">—</b></div>
+                  <div class="progress"><span id="metricTimeToFillBar" style="width:0%"></span></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:11px"><span>Offer acceptance</span><b id="metricOfferAcceptance">—</b></div>
+                  <div class="progress"><span id="metricOfferAcceptanceBar" style="width:0%;background:#22C55E"></span></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:11px"><span>Jobs on target</span><b id="metricJobsOnTarget">—</b></div>
+                  <div class="progress"><span id="metricJobsOnTargetBar" style="width:0%;background:#F59E0B"></span></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -106,31 +136,56 @@
         <div class="job-grid" id="jobsGrid"><div class="empty">Loading jobs…</div></div>
       </section>
       <section class="page" id="candidates">
-        <div class="hero"><div><h1>Candidates</h1><p>A single candidate profile across every application.</p></div><button class="btn-cyan">+ Add candidate</button></div>
-        <div class="card"><div class="toolbar"><input class="search" placeholder="Search candidate by name, email or phone..."><select class="filter"><option>All jobs</option><option>Account Executive</option><option>CSR</option></select></div><div class="tw"><table><thead><tr><th>Candidate</th><th>Current Job</th><th>Stage</th><th>Source</th><th>Last Activity</th><th>Status</th></tr></thead><tbody>
-          <tr><td><div class="tn">Mariana López</div><div class="tm">mariana@example.com</div></td><td>Account Executive</td><td>Offer</td><td>LinkedIn</td><td>Today, 10:42</td><td><span class="pill pg">Accepted</span></td></tr>
-          <tr><td><div class="tn">Daniela Ruiz</div><div class="tm">daniela@example.com</div></td><td>CSR</td><td>TA Interview</td><td>Referral</td><td>Today, 08:55</td><td><span class="pill pc">Active</span></td></tr>
-          <tr><td><div class="tn">Carlos Méndez</div><div class="tm">carlos@example.com</div></td><td>Operations Analyst</td><td>Screening</td><td>LinkedIn</td><td>Yesterday</td><td><span class="pill pc">Active</span></td></tr>
-        </tbody></table></div></div>
+        <div class="hero">
+          <div><h1>Candidates</h1><p>A live view of candidates and their applications.</p></div>
+        </div>
+        <div class="card">
+          <div class="toolbar">
+            <input class="search" id="candidateSearch" placeholder="Search candidate by name, email or phone...">
+            <select class="filter" id="candidateJobFilter"><option value="">All jobs</option></select>
+          </div>
+          <div id="candidateDataError" class="data-error"></div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Candidate</th><th>Current Job</th><th>Stage</th><th>Source</th><th>Last Activity</th><th>Status</th></tr></thead>
+              <tbody id="candidateTableBody">
+                <tr><td colspan="6" style="text-align:center;color:#94A3B8;padding:24px">Loading candidates…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
       <section class="page" id="pipeline">
-        <div class="hero"><div><h1>Pipeline</h1><p>Move candidates through the recruiting process without losing context.</p></div><select class="filter"><option>Account Executive</option><option>CSR</option><option>Operations Analyst</option></select></div>
-        <div class="pipeline">
-          <div class="stage"><div class="stage-head"><span>New</span><span class="stage-count">7</span></div><div class="candidate-card"><div class="cand-name">Ricardo Silva</div><div class="cand-meta">LinkedIn · 1d</div><div class="cand-foot"><span class="pill pgr">New</span><span class="tm">1d</span></div></div><div class="candidate-card"><div class="cand-name">Sofía Moreno</div><div class="cand-meta">Referral · 2d</div><div class="cand-foot"><span class="pill pgr">New</span><span class="tm">2d</span></div></div></div>
-          <div class="stage"><div class="stage-head"><span>Screening</span><span class="stage-count">5</span></div><div class="candidate-card"><div class="cand-name">Carlos Méndez</div><div class="cand-meta">Salary fit · 3d</div><div class="cand-foot"><span class="pill pa">3d</span><span class="tm">⚠</span></div></div></div>
-          <div class="stage"><div class="stage-head"><span>TA Interview</span><span class="stage-count">3</span></div><div class="candidate-card"><div class="cand-name">Daniela Ruiz</div><div class="cand-meta">Interview today · 1d</div><div class="cand-foot"><span class="pill pc">Today</span><span class="tm">10:30</span></div></div></div>
-          <div class="stage"><div class="stage-head"><span>Offer</span><span class="stage-count">2</span></div><div class="candidate-card"><div class="cand-name">Mariana López</div><div class="cand-meta">Offer sent · 2d</div><div class="cand-foot"><span class="pill pg">Accepted</span><span class="tm">V2</span></div></div></div>
-          <div class="stage"><div class="stage-head"><span>Hired</span><span class="stage-count">6</span></div><div class="candidate-card"><div class="cand-name">Luis Hernández</div><div class="cand-meta">Starts 19 Aug</div><div class="cand-foot"><span class="pill pg">Hired</span><span class="tm">CX00794</span></div></div></div>
+        <div class="hero">
+          <div><h1>Pipeline</h1><p>Live candidate distribution across the selected job pipeline.</p></div>
+          <select class="filter" id="pipelineJobSelect"><option value="">Select a job</option></select>
+        </div>
+        <div id="pipelineDataError" class="data-error"></div>
+        <div class="pipeline" id="pipelineBoard">
+          <div class="empty">Select an open job to view its pipeline.</div>
         </div>
       </section>
       <section class="page" id="offers">
-        <div class="hero"><div><h1>Offers & Hires</h1><p>Track approvals, negotiations, acceptance, and handoff to Impulse.</p></div><button class="btn-primary">Create offer</button></div>
-        <div class="kgrid"><div class="kbox"><div class="klabel">Draft</div><div class="kval">2</div></div><div class="kbox"><div class="klabel">Pending Approval</div><div class="kval">1</div></div><div class="kbox"><div class="klabel">Sent</div><div class="kval">3</div></div><div class="kbox"><div class="klabel">Accepted</div><div class="kval">9</div><div class="kdelta good">This month</div></div></div>
-        <div class="card"><div class="tw"><table><thead><tr><th>Candidate</th><th>Job</th><th>Version</th><th>Salary</th><th>Start Date</th><th>Status</th><th>Impulse</th></tr></thead><tbody>
-          <tr><td class="tn">Mariana López</td><td>Account Executive</td><td>V2</td><td>$33,000 MXN</td><td>01 Sep 2026</td><td><span class="pill pg">Accepted</span></td><td><span class="pill pa">Pending</span></td></tr>
-          <tr><td class="tn">Jorge Castillo</td><td>CSR</td><td>V1</td><td>$16,500 MXN</td><td>25 Aug 2026</td><td><span class="pill pb">Sent</span></td><td>—</td></tr>
-          <tr><td class="tn">Mónica Reyes</td><td>Operations Analyst</td><td>V1</td><td>$27,000 MXN</td><td>08 Sep 2026</td><td><span class="pill pa">Pending approval</span></td><td>—</td></tr>
-        </tbody></table></div></div>
+        <div class="hero">
+          <div><h1>Offers & Hires</h1><p>Live offer status, accepted hires, and Impulse provisioning state.</p></div>
+        </div>
+        <div class="kgrid">
+          <div class="kbox"><div class="klabel">Draft</div><div class="kval" id="offerDraftCount">—</div></div>
+          <div class="kbox"><div class="klabel">Pending Approval</div><div class="kval" id="offerPendingCount">—</div></div>
+          <div class="kbox"><div class="klabel">Sent</div><div class="kval" id="offerSentCount">—</div></div>
+          <div class="kbox"><div class="klabel">Accepted</div><div class="kval" id="offerAcceptedCount">—</div><div class="kdelta good">All recorded offers</div></div>
+        </div>
+        <div id="offersDataError" class="data-error"></div>
+        <div class="card">
+          <div class="tw">
+            <table>
+              <thead><tr><th>Candidate</th><th>Job</th><th>Version</th><th>Salary</th><th>Start Date</th><th>Status</th><th>Impulse</th></tr></thead>
+              <tbody id="offersTableBody">
+                <tr><td colspan="7" style="text-align:center;color:#94A3B8;padding:24px">Loading offers…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
       <section class="page" id="onboarding"><div class="hero"><div><h1>Onboarding</h1><p>This module will activate after Recruiting handoff.</p></div></div><div class="empty">Onboarding is reserved for the next build. Recruiting hires will already be ready to hand off here.</div></section>
       <section class="page" id="analytics"><div class="hero"><div><h1>People Analytics</h1><p>Executive reporting across Recruiting and Onboarding.</p></div></div><div class="empty">Analytics shell is ready. We will connect live metrics after the core Recruiting workflow is complete.</div></section>
@@ -208,6 +263,9 @@
 <script src="./js/dashboard.js"></script>
 <script src="./js/requisitions.js"></script>
 <script src="./js/jobs.js"></script>
+<script src="./js/candidates.js"></script>
+<script src="./js/pipeline.js"></script>
+<script src="./js/offers.js"></script>
 <script src="./js/app.js"></script>
 
 </body>
