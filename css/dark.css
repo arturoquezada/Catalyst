@@ -1,0 +1,14 @@
+/* Dark theme overrides.
+   Theme is selected with: html[data-theme="dark"]
+*/
+html[data-theme="dark"]{--bg:#0B1220;--surface:#111827;--surface-2:#0F172A;--surface-3:#172033;--text:#E5E7EB;--text-2:#CBD5E1;--muted:#94A3B8;--line:#243244}
+html[data-theme="dark"] body,html[data-theme="dark"] .main,html[data-theme="dark"] .content{background:var(--bg);color:var(--text)}
+html[data-theme="dark"] .topbar,html[data-theme="dark"] .card,html[data-theme="dark"] .kbox,html[data-theme="dark"] .job-card,html[data-theme="dark"] .candidate-card,html[data-theme="dark"] .tw,html[data-theme="dark"] .modal,html[data-theme="dark"] .auth-right{background:var(--surface);color:var(--text);border-color:var(--line)}
+html[data-theme="dark"] .tw th,html[data-theme="dark"] .stage,html[data-theme="dark"] .toolbar .search,html[data-theme="dark"] .toolbar .filter,html[data-theme="dark"] .form-row input,html[data-theme="dark"] .form-row select,html[data-theme="dark"] .form-row textarea,html[data-theme="dark"] .js{background:var(--surface-2);color:var(--text);border-color:var(--line)}
+html[data-theme="dark"] .tw td,html[data-theme="dark"] .card-sub,html[data-theme="dark"] .job-meta,html[data-theme="dark"] .cand-meta,html[data-theme="dark"] .att-sub,html[data-theme="dark"] .kdelta{color:var(--muted)}
+html[data-theme="dark"] .tn,html[data-theme="dark"] .job-title,html[data-theme="dark"] .att-title,html[data-theme="dark"] .card-title,html[data-theme="dark"] .hero h1,html[data-theme="dark"] .tb-title,html[data-theme="dark"] .jsv{color:var(--text)}
+html[data-theme="dark"] .attention{background:var(--surface);border-color:var(--line)}html[data-theme="dark"] .attention:hover,html[data-theme="dark"] .tw tbody tr:hover td{background:var(--surface-2)}
+html[data-theme="dark"] .modal-body{background:var(--surface-2)}html[data-theme="dark"] .modal-footer{border-color:var(--line)}
+html[data-theme="dark"] .empty{background:var(--surface-2);border-color:var(--line);color:var(--muted)}
+html[data-theme="dark"] .logout-btn{background:var(--surface-3);color:var(--text-2)}html[data-theme="dark"] .tb-date{background:var(--surface-2);border-color:var(--line);color:var(--muted)}
+html[data-theme="dark"] .mobile-nav{background:rgba(17,24,39,.96);border-color:var(--line)}
