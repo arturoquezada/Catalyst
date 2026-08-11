@@ -103,11 +103,7 @@
       </section>
       <section class="page" id="jobs">
         <div class="hero"><div><h1>Jobs</h1><p>Active vacancies, ownership, health, and hiring progress.</p></div><button class="btn-primary">Assign recruiter</button></div>
-        <div class="job-grid">
-          <div class="job-card"><div class="job-top"><div><div class="job-title">Account Executive</div><div class="job-meta">Sales · Laura Gómez</div></div><span class="pill pr">At risk</span></div><div class="progress"><span style="width:60%;background:#EF4444"></span></div><div class="job-stats"><div class="js"><div class="jsv">6 / 10</div><div class="jsl">Filled</div></div><div class="js"><div class="jsv">34d</div><div class="jsl">Open</div></div><div class="js"><div class="jsv">18</div><div class="jsl">Candidates</div></div></div></div>
-          <div class="job-card"><div class="job-top"><div><div class="job-title">CSR</div><div class="job-meta">Stori · Fernanda Ruiz</div></div><span class="pill pg">On track</span></div><div class="progress"><span style="width:33%;background:#22C55E"></span></div><div class="job-stats"><div class="js"><div class="jsv">4 / 12</div><div class="jsl">Filled</div></div><div class="js"><div class="jsv">14d</div><div class="jsl">Open</div></div><div class="js"><div class="jsv">41</div><div class="jsl">Candidates</div></div></div></div>
-          <div class="job-card"><div class="job-top"><div><div class="job-title">Operations Analyst</div><div class="job-meta">Operations · Laura Gómez</div></div><span class="pill pa">Attention</span></div><div class="progress"><span style="width:50%;background:#F59E0B"></span></div><div class="job-stats"><div class="js"><div class="jsv">1 / 2</div><div class="jsl">Filled</div></div><div class="js"><div class="jsv">21d</div><div class="jsl">Open</div></div><div class="js"><div class="jsv">9</div><div class="jsl">Candidates</div></div></div></div>
-        </div>
+        <div class="job-grid" id="jobsGrid"><div class="empty">Loading jobs…</div></div>
       </section>
       <section class="page" id="candidates">
         <div class="hero"><div><h1>Candidates</h1><p>A single candidate profile across every application.</p></div><button class="btn-cyan">+ Add candidate</button></div>
@@ -154,6 +150,54 @@
   <div class="form-row full"><label>Business justification</label><textarea id="reqReason" placeholder="Why is this hire needed?"></textarea></div>
 </div></div><div class="modal-footer"><button class="btn-ghost" onclick="closeRequisitionModal()">Cancel</button><button class="btn-primary" onclick="saveDraft()">Save draft</button><button class="btn-cyan" onclick="submitReq()">Submit requisition</button></div></div></div>
 
+<div class="modal-backdrop" id="reqDetailModal">
+  <div class="modal req-detail-modal">
+    <div class="modal-hd">
+      <div><h3 id="reqDetailTitle">Requisition</h3><p id="reqDetailSubtitle">Review hiring request</p></div>
+      <button class="modal-close" onclick="closeRequisitionDetail()">×</button>
+    </div>
+    <div class="modal-body">
+      <div id="reqDetailLoading" class="empty">Loading requisition…</div>
+      <div id="reqDetailContent" style="display:none">
+        <div class="detail-grid">
+          <div class="detail-item"><span>Campaign</span><strong id="rdCampaign">—</strong></div>
+          <div class="detail-item"><span>LOB</span><strong id="rdLob">—</strong></div>
+          <div class="detail-item"><span>Headcount</span><strong id="rdHeads">—</strong></div>
+          <div class="detail-item"><span>Priority</span><strong id="rdPriority">—</strong></div>
+          <div class="detail-item"><span>Type</span><strong id="rdType">—</strong></div>
+          <div class="detail-item"><span>Target start</span><strong id="rdStart">—</strong></div>
+          <div class="detail-item full"><span>Schedule</span><strong id="rdSchedule">—</strong></div>
+          <div class="detail-item full"><span>Requested by</span><strong id="rdRequester">—</strong></div>
+        </div>
+        <div class="detail-note"><span>Business justification</span><p id="rdReason">—</p></div>
+        <div class="detail-note" id="rdDecisionNoteWrap" style="display:none"><span id="rdDecisionNoteLabel">Decision notes</span><p id="rdDecisionNote">—</p></div>
+
+        <div class="approval-panel" id="approvalPanel" style="display:none">
+          <div class="approval-head"><div><strong>Approve & create job</strong><p>Configure the vacancy before it goes live to TA.</p></div><span class="pill pc">Head of People</span></div>
+          <div class="form-grid">
+            <div class="form-row"><label>Recruiter owner</label><select id="approveRecruiter"></select></div>
+            <div class="form-row"><label>Pipeline</label><select id="approvePipeline"></select></div>
+            <div class="form-row"><label>Target fill date</label><input id="approveTargetFill" type="date"></div>
+            <div class="form-row"><label>Priority</label><select id="approvePriority"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
+            <div class="form-row full"><label>Decision notes</label><textarea id="approveNotes" placeholder="Optional for approval; required to return or reject."></textarea></div>
+          </div>
+          <div class="decision-actions">
+            <button class="btn-danger" onclick="rejectCurrentRequisition()">Reject</button>
+            <button class="btn-ghost" onclick="returnCurrentRequisition()">Return for changes</button>
+            <div class="decision-spacer"></div>
+            <button class="btn-cyan" onclick="approveCurrentRequisition()">Approve & create job</button>
+          </div>
+        </div>
+
+        <div class="linked-job" id="linkedJobPanel" style="display:none">
+          <span>Linked Job</span>
+          <div><strong id="linkedJobId">—</strong><button class="btn-ghost" onclick="goToLinkedJob()">Open Jobs</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -163,6 +207,7 @@
 <script src="./js/auth.js"></script>
 <script src="./js/dashboard.js"></script>
 <script src="./js/requisitions.js"></script>
+<script src="./js/jobs.js"></script>
 <script src="./js/app.js"></script>
 
 </body>

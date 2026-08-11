@@ -1,3 +1,23 @@
 /* Reserved for reusable Catalyst component overrides.
    New components should be added here instead of growing index.html.
 */
+
+/* Requisition detail / approval workflow */
+.req-detail-modal{width:760px}
+.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.detail-item{background:var(--surface,#fff);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+.detail-item.full{grid-column:1/-1}
+.detail-item span,.detail-note span,.linked-job>span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.55px;font-weight:800;color:var(--muted);margin-bottom:5px}
+.detail-item strong{font-size:12px;color:var(--text,#0F172A)}
+.detail-note{background:var(--surface,#fff);border:1px solid var(--line);border-radius:10px;padding:12px 13px;margin-bottom:12px}
+.detail-note p{font-size:12px;line-height:1.55;color:var(--text-2,#334155);white-space:pre-wrap}
+.approval-panel{border:1px solid #BAE6FD;background:#F0F9FF;border-radius:12px;padding:14px;margin-top:14px}
+.approval-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.approval-head strong{font-size:13px}.approval-head p{font-size:10px;color:#64748B;margin-top:2px}
+.decision-actions{display:flex;align-items:center;gap:8px;margin-top:4px}.decision-spacer{flex:1}
+.btn-danger{border:none;border-radius:8px;padding:9px 14px;font-size:12px;font-weight:800;cursor:pointer;background:#FEE2E2;color:#991B1B}
+.linked-job{margin-top:12px;border:1px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--surface,#fff)}
+.linked-job>div{display:flex;align-items:center;justify-content:space-between;gap:12px}.linked-job strong{font-family:var(--fm);font-size:11px}
+.req-row{cursor:pointer}.req-row:hover td{background:#F8FAFC}
+.job-empty{grid-column:1/-1}
+@media(max-width:820px){.detail-grid{grid-template-columns:1fr 1fr}.decision-actions{flex-wrap:wrap}.decision-spacer{display:none;width:0}.decision-actions .btn-cyan{width:100%}}

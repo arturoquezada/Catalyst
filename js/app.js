@@ -75,6 +75,7 @@ function go(page){
   });
 
   if(page==='requisitions') loadRequisitions();
+  if(page==='jobs' && typeof loadJobs==='function') loadJobs();
 }
 
 function updateClock(){

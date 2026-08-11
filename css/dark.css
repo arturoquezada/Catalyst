@@ -12,3 +12,7 @@ html[data-theme="dark"] .modal-body{background:var(--surface-2)}html[data-theme=
 html[data-theme="dark"] .empty{background:var(--surface-2);border-color:var(--line);color:var(--muted)}
 html[data-theme="dark"] .logout-btn{background:var(--surface-3);color:var(--text-2)}html[data-theme="dark"] .tb-date{background:var(--surface-2);border-color:var(--line);color:var(--muted)}
 html[data-theme="dark"] .mobile-nav{background:rgba(17,24,39,.96);border-color:var(--line)}
+html[data-theme="dark"] .detail-item,html[data-theme="dark"] .detail-note,html[data-theme="dark"] .linked-job{background:var(--surface);border-color:var(--line)}
+html[data-theme="dark"] .detail-item strong,html[data-theme="dark"] .detail-note p{color:var(--text)}
+html[data-theme="dark"] .approval-panel{background:#0C2533;border-color:#164E63}
+html[data-theme="dark"] .req-row:hover td{background:var(--surface-2)}

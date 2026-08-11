@@ -20,7 +20,7 @@ async function startCatalyst(user){
     document.getElementById('sbUserRole').textContent=roleLabel(currentRole);
     document.getElementById('sbUserAv').textContent=initials(emp.nombre_completo||emp.nombre||user.email);
     const h1=document.querySelector('#dashboard .hero h1');if(h1){const first=(emp.nombre||emp.nombre_completo||'').split(' ')[0]||'';h1.textContent=currentLanguage==='es'?`Buenos días, ${first}.`:`Good morning, ${first}.`;}
-    applyRoleVisibility();updateClock();await Promise.allSettled([loadDashboard(),loadRequisitions()]);
+    applyRoleVisibility();updateClock();await Promise.allSettled([loadDashboard(),loadRequisitions(),typeof loadJobs==='function'?loadJobs():Promise.resolve()]);
   }finally{showLoading(false)}
 }
 
