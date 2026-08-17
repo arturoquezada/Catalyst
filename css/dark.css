@@ -16,3 +16,5 @@ html[data-theme="dark"] .detail-item,html[data-theme="dark"] .detail-note,html[d
 html[data-theme="dark"] .detail-item strong,html[data-theme="dark"] .detail-note p{color:var(--text)}
 html[data-theme="dark"] .approval-panel{background:#0C2533;border-color:#164E63}
 html[data-theme="dark"] .req-row:hover td{background:var(--surface-2)}
+html[data-theme="dark"] .detail-hero,html[data-theme="dark"] .detail-section{background:var(--surface);border-color:var(--line)}
+html[data-theme="dark"] .meta-box,html[data-theme="dark"] .status-flow .step{background:var(--surface-2);border-color:var(--line)}

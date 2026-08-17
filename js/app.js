@@ -79,6 +79,8 @@ function go(page){
   if(page==='candidates' && typeof loadCandidates==='function') loadCandidates();
   if(page==='pipeline' && typeof loadPipeline==='function') loadPipeline();
   if(page==='offers' && typeof loadOffers==='function') loadOffers();
+  if(page==='onboarding' && typeof loadOnboarding==='function') loadOnboarding();
+  if(page==='analytics' && typeof loadAnalytics==='function') loadAnalytics();
 }
 
 function updateClock(){

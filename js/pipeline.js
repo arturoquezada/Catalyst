@@ -68,12 +68,12 @@ async function renderPipelineForJob(jobId){
   }
 
   board.innerHTML=columns.map(col=>`
-    <div class="stage">
+    <div class="stage" data-stage-id="${col.id}" ondragover="pipelineDragOver(event)" ondragleave="pipelineDragLeave(event)" ondrop="pipelineDrop(event,'${col.id}')">
       <div class="stage-head"><span>${esc(col.name)}</span><span class="stage-count">${col.apps.length}</span></div>
       ${col.apps.length?col.apps.map(a=>{
         const c=candMap[a.candidate_id]||{};
         const age=daysBetween(a.updated_at||a.created_at,new Date());
-        return `<div class="candidate-card">
+        return `<div class="candidate-card" draggable="true" data-application-id="${a.id}" onclick="openCandidateDetail('${a.id}')" ondragstart="pipelineDragStart(event,'${a.id}')">
           <div class="cand-name">${esc(c.full_name||t('Unnamed candidate'))}</div>
           <div class="cand-meta">${esc(c.source||'—')} · ${age===null?'—':age+'d'}</div>
           <div class="cand-foot"><span class="pill ${pillForStatus(a.status)}">${esc(t(a.status))}</span><span class="tm">${age===null?'—':age+'d'}</span></div>
@@ -83,3 +83,10 @@ async function renderPipelineForJob(jobId){
 }
 
 document.getElementById('pipelineJobSelect')?.addEventListener('change',e=>renderPipelineForJob(e.target.value));
+
+
+let draggedApplicationId=null;
+function pipelineDragStart(event,applicationId){draggedApplicationId=applicationId;event.currentTarget.classList.add('dragging');event.dataTransfer.effectAllowed='move';}
+function pipelineDragOver(event){event.preventDefault();event.currentTarget.classList.add('drop-target');event.dataTransfer.dropEffect='move';}
+function pipelineDragLeave(event){event.currentTarget.classList.remove('drop-target');}
+async function pipelineDrop(event,stageId){event.preventDefault();event.currentTarget.classList.remove('drop-target');document.querySelectorAll('.candidate-card.dragging').forEach(x=>x.classList.remove('dragging'));if(!draggedApplicationId||stageId==='unassigned')return;const id=draggedApplicationId;draggedApplicationId=null;await moveApplicationStage(id,stageId);}

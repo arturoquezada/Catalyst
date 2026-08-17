@@ -44,13 +44,13 @@ function applyRoleVisibility(){
     btn.style.display=canCreate ? '' : 'none';
   });
 
-  ['candidates','pipeline','offers'].forEach(page=>{
+  ['candidates','pipeline','offers','onboarding','analytics'].forEach(page=>{
     document.querySelectorAll(`[data-page="${page}"]`).forEach(el=>{
       el.style.display=isMgr ? 'none' : '';
     });
   });
 
-  if(isMgr && ['candidates','pipeline','offers'].includes(document.querySelector('.page.active')?.id)){
+  if(isMgr && ['candidates','pipeline','offers','onboarding','analytics'].includes(document.querySelector('.page.active')?.id)){
     go('dashboard');
   }
 }

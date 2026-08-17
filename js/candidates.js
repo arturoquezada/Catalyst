@@ -80,7 +80,7 @@ function renderCandidates(){
   tbody.innerHTML=rows.map(r=>{
     const c=r.candidate||{};
     const last=new Date(r.updated_at||r.created_at).toLocaleString(currentLanguage==='es'?'es-MX':'en-US',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
-    return `<tr>
+    return `<tr onclick="openCandidateDetail('${r.id}')">
       <td><div class="tn">${esc(c.full_name||t('Unnamed candidate'))}</div><div class="tm">${esc(c.email||c.phone||'—')}</div></td>
       <td>${esc(r.job?.title||'—')}</td>
       <td>${esc(r.stage?.name||t('No stage'))}</td>

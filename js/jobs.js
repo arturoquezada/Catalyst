@@ -30,7 +30,7 @@ async function loadJobs(){
       const openDays=j.open_date?Math.max(0,Math.floor((Date.now()-new Date(j.open_date+'T12:00:00').getTime())/86400000)):0;
       const priority=String(j.priority||'medium').toLowerCase();
       const status=String(j.status||'').replaceAll('_',' ');
-      return `<div class="job-card">
+      return `<div class="job-card" onclick="openJobDetail('${j.id}')">
         <div class="job-top"><div><div class="job-title">${esc(j.title)}</div><div class="job-meta">${esc(j.campaign||j.department||'—')} · ${esc(owners[j.recruiter_owner_id]||t('Unassigned'))}</div></div><span class="pill ${pillForStatus(j.status)}">${esc(t(status))}</span></div>
         <div class="progress"><span style="width:${j.status==='closed'?100:Math.min(90,Math.max(8,100-(openDays*1.5)))}%"></span></div>
         <div class="job-stats">

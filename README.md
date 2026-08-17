@@ -42,3 +42,10 @@ If Vercel loads the login screen but buttons do not work:
 1. Open browser DevTools → Console.
 2. Check the first red JavaScript error.
 3. Catalyst JS files are loaded from `/js/`; `app.js` is the bootstrap file.
+
+## Release candidate backend
+Before deploying this release candidate, run `sql/catalyst_release_backend.sql` once in Supabase SQL Editor. It installs the operational RPCs for candidate creation, stage movement, interviews, feedback, offer workflow, automatic Hire creation and marking a provisioned Hire as started.
+
+Then run `sql/release_validation.sql` (read-only) to confirm the expected functions are present.
+
+Use `RELEASE_CHECKLIST.md` for the end-to-end launch test.

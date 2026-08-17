@@ -56,7 +56,7 @@ async function loadOffers(){
       const h=hireMap[o.id];
       const salary=v.salary!=null ? new Intl.NumberFormat(currentLanguage==='es'?'es-MX':'en-US',{style:'currency',currency:v.currency||'MXN',maximumFractionDigits:0}).format(v.salary) : '—';
       const impulse=h?.employee_id ? h.employee_id : (h ? t('Pending') : '—');
-      return `<tr>
+      return `<tr onclick="openOfferDetail('${o.id}')">
         <td class="tn">${esc(candMap[a.candidate_id]||t('Candidate'))}</td>
         <td>${esc(jobMap[a.job_id]||'—')}</td>
         <td>${v.version_number?`V${esc(v.version_number)}`:'—'}</td>
