@@ -245,7 +245,7 @@ async function openOfferDetail(offerId){activeOfferId=offerId;openModal('offerDe
   const canHop=hopRoles.includes(currentRole),canStaff=taRoles.includes(currentRole)||canHop;
   const actions=[];
   if(canStaff&&o.status==='draft') actions.push(`<button class="btn-cyan" onclick="setOfferStatus('pending_approval')">${t('Submit for approval')}</button>`);
-  if(canHop&&o.status==='pending_approval') actions.push(`<button class="btn-success" onclick="setOfferStatus('ready_to_send')">${t('Approve offer')}</button>`);
+  if(canStaff&&o.status==='pending_approval') actions.push(`<button class="btn-success" onclick="setOfferStatus('ready_to_send')">${t('Approve offer')}</button>`);
   if(canStaff&&o.status==='ready_to_send') actions.push(`<button class="btn-cyan" onclick="setOfferStatus('sent')">${t('Mark sent')}</button>`);
   if(canStaff&&['sent','negotiation'].includes(o.status)){actions.push(`<button class="btn-success" onclick="setOfferStatus('accepted')">${t('Accept offer')}</button>`);actions.push(`<button class="btn-danger" onclick="setOfferStatus('declined',true)">${t('Decline offer')}</button>`);actions.push(`<button class="btn-ghost" onclick="openOfferEditModal('version','${o.id}')">${t('New version')}</button>`)}
   if(hire&&canHop&&!hire.employee_id) actions.push(`<button class="btn-cyan" onclick="openProvisionModal('${hire.id}','${esc(j.title)}')">${t('Provision to Impulse')}</button>`);
