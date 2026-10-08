@@ -313,8 +313,8 @@
 <div class="modal-backdrop" id="reviewModal"><div class="modal">
   <div class="modal-hd"><div><h3>Stage feedback</h3><p>Save the feedback required to move the candidate forward.</p></div><button class="modal-close" onclick="closeReviewModal()">×</button></div>
   <div class="modal-body"><div class="form-grid">
-    <div class="form-row"><label>Score</label><input id="reviewScore" type="number" min="1" max="100" placeholder="Optional"></div>
-    <div class="form-row"><label>Decision</label><select id="reviewDecision"><option value="">No decision</option><option value="hire">Hire / Continue</option><option value="hold">Hold</option><option value="no_hire">No hire</option></select></div>
+    <div class="form-row"><label>Score</label><input id="reviewScore" type="number" min="1" max="5" step="1" placeholder="Optional"></div>
+    <div class="form-row"><label>Decision</label><select id="reviewDecision"><option value="">No decision</option><option value="approve">Approve / Continue</option><option value="reject">Reject / No hire</option></select></div>
     <div class="form-row full"><label>Notes</label><textarea id="reviewNotes" placeholder="Feedback notes"></textarea></div>
   </div></div>
   <div class="modal-footer"><button class="btn-ghost" onclick="closeReviewModal()">Cancel</button><button class="btn-cyan" onclick="submitStageReview()">Save feedback</button></div>
