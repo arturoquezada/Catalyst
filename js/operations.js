@@ -1,3 +1,4 @@
+
 let activeApplicationId=null;
 let activeCandidateId=null;
 let activeOfferId=null;
@@ -29,6 +30,7 @@ async function openAddCandidate(jobId=null){
   select.innerHTML='<option value="">Select a job</option>'+data.map(j=>`<option value="${esc(j.id)}">${esc(j.title)}</option>`).join('');
   if(jobId) select.value=jobId;
 }
+
 function closeAddCandidate(){closeModal('candidateAddModal')}
 async function submitAddCandidate(){
   const job=document.getElementById('candidateAddJob').value;
@@ -87,6 +89,7 @@ async function openJobDetail(jobId){
     </div>`;
   }catch(e){body.className='empty';body.textContent=e.message||'Could not load job.'}
 }
+
 function closeJobDetail(){closeModal('jobDetailModal')}
 function selectPipelineJob(jobId){const s=document.getElementById('pipelineJobSelect');if(s){s.value=jobId;renderPipelineForJob(jobId)}}
 
@@ -130,6 +133,7 @@ async function openCandidateDetail(applicationId){
     </div>`;
   }catch(e){body.className='empty';body.textContent=e.message||'Could not load candidate.'}
 }
+
 function closeCandidateDetail(){closeModal('candidateDetailModal')}
 async function moveFromDetail(){const to=document.getElementById('detailStageSelect').value;if(to===activeApplicationStageId)return;showLoading(true);try{await rpc('catalyst_move_application_stage',{p_application_id:activeApplicationId,p_to_stage_id:to,p_notes:null});activeApplicationStageId=to;await Promise.allSettled([loadCandidates(),loadPipeline(),loadDashboard(),openCandidateDetail(activeApplicationId)])}catch(e){alert(e.message)}finally{showLoading(false)}}
 async function moveApplicationStage(applicationId,toStageId){showLoading(true);try{await rpc('catalyst_move_application_stage',{p_application_id:applicationId,p_to_stage_id:toStageId,p_notes:null});await Promise.allSettled([loadPipeline(),loadCandidates(),loadDashboard()])}catch(e){alert(e.message)}finally{showLoading(false)}}
@@ -147,6 +151,7 @@ async function openInterviewModal(){
   document.getElementById('interviewStage').innerHTML=(stageRes.data||[]).map(s=>`<option value="${s.id}" ${s.id===app.current_stage_id?'selected':''}>${esc(s.name)}</option>`).join('');
   document.getElementById('interviewOwner').innerHTML=staff.map(e=>`<option value="${e.id}" ${e.id===currentEmpleado.id?'selected':''}>${esc(e.nombre_completo||e.nombre)}</option>`).join('');
 }
+
 function closeInterviewModal(){closeModal('interviewModal')}
 async function submitInterview(){const stage=document.getElementById('interviewStage').value,owner=document.getElementById('interviewOwner').value,when=document.getElementById('interviewWhen').value,type=document.getElementById('interviewType').value;if(!stage||!owner||!when){alert(t('Complete required fields'));return}showLoading(true);try{await rpc('catalyst_schedule_interview',{p_application_id:activeApplicationId,p_stage_id:stage,p_interviewer_id:owner,p_scheduled_at:new Date(when).toISOString(),p_interview_type:type});closeInterviewModal();await openCandidateDetail(activeApplicationId)}catch(e){alert(e.message)}finally{showLoading(false)}}
 async function changeInterviewStatus(id,status){try{await rpc('catalyst_set_interview_status',{p_interview_id:id,p_status:status});await openCandidateDetail(activeApplicationId)}catch(e){alert(e.message)}}
@@ -156,7 +161,70 @@ async function changeInterviewStatus(id,status){try{await rpc('catalyst_set_inte
 // ---------------------------------------------------------
 function openReviewModal(){if(!activeApplicationId||!activeApplicationStageId)return;openModal('reviewModal')}
 function closeReviewModal(){closeModal('reviewModal')}
-async function submitStageReview(){const scoreRaw=document.getElementById('reviewScore').value;showLoading(true);try{await rpc('catalyst_save_stage_review',{p_application_id:activeApplicationId,p_stage_id:activeApplicationStageId,p_score:scoreRaw?Number(scoreRaw):null,p_decision:document.getElementById('reviewDecision').value||null,p_notes:document.getElementById('reviewNotes').value||null});closeReviewModal();await openCandidateDetail(activeApplicationId)}catch(e){alert(e.message)}finally{showLoading(false)}}
+
+async function submitStageReview(){
+  if(!activeApplicationId || !activeApplicationStageId){
+    alert(currentLanguage==='es'
+      ? 'No hay una aplicación o etapa seleccionada.'
+      : 'No active application or stage selected.');
+    return;
+  }
+
+  const scoreElement=document.getElementById('reviewScore');
+  const decisionElement=document.getElementById('reviewDecision');
+  const notesElement=document.getElementById('reviewNotes');
+
+  if(!scoreElement || !decisionElement || !notesElement){
+    alert(currentLanguage==='es'
+      ? 'No se encontraron los campos del formulario de evaluación.'
+      : 'Stage feedback form fields were not found.');
+    return;
+  }
+
+  const scoreRaw=scoreElement.value.trim();
+  const decision=decisionElement.value || null;
+  const notes=notesElement.value.trim() || null;
+  let score=null;
+
+  if(scoreRaw!==''){
+    score=Number(scoreRaw);
+
+    if(!Number.isInteger(score) || score<1 || score>5){
+      alert(currentLanguage==='es'
+        ? 'La calificación debe ser un número entero entre 1 y 5.'
+        : 'Score must be an integer between 1 and 5.');
+      return;
+    }
+  }
+
+  if(decision && !['approve','reject'].includes(decision)){
+    alert(currentLanguage==='es'
+      ? 'Selecciona una decisión válida: Aprobar o Rechazar.'
+      : 'Select a valid decision: Approve or Reject.');
+    return;
+  }
+
+  showLoading(true);
+
+  try{
+    await rpc('catalyst_save_stage_review',{
+      p_application_id:activeApplicationId,
+      p_stage_id:activeApplicationStageId,
+      p_score:score,
+      p_decision:decision,
+      p_notes:notes
+    });
+
+    closeReviewModal();
+    await openCandidateDetail(activeApplicationId);
+
+  }catch(e){
+    console.error('[Catalyst stage review]',e);
+    alert(e.message || 'Could not save stage feedback.');
+  }finally{
+    showLoading(false);
+  }
+}
 
 // ---------------------------------------------------------
 // Offer creation/versioning
